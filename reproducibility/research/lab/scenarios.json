@@ -1,0 +1,10 @@
+{
+  "/baseline/": [
+    {"action":"click","selector":"#x","assert_selector":"#x"},
+    {"action":"click","selector":"#quote","assert_selector":"#answer"}
+  ],
+  "/protected/": [
+    {"action":"click","selector":"#x","assert_selector":"#x"},
+    {"action":"click","selector":"#quote","assert_selector":"#answer"}
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "started": "2026-10-18",
+  "timezone": "Asia/Baku UTC+04:00",
+  "question": "What can browsers and websites independently or collaboratively do to resist website copying and client script extraction under explicit adversary models?",
+  "authorized_live_target": "https://emilvaliyev.com/",
+  "live_scope": "Low-rate read-only browser observations and the existing DoppelGNG capture behavior. No production modification, credentials, form submissions, external linked-domain testing, or load testing.",
+  "experimental_scope": "New protections on isolated loopback test pages executed in real browser engines. The user clarified that website script experiments need local testing.",
+  "evidence_classes": ["observation", "external_claim", "interpretation", "hypothesis", "unverified", "decision", "failure"],
+  "targets": ["content copying", "visual replication", "script bytes", "behavior reconstruction", "proprietary logic"],
+  "adversaries": {
+    "A1": "unauthenticated HTTP collector honoring documented access controls",
+    "A2": "ordinary authorized browser user with DOM and resource access",
+    "A3": "browser owner able to instrument execution and alter local code",
+    "A4": "OS or browser implementation owner, including custom binaries",
+    "A5": "remote malicious origin constrained by browser origin boundaries"
+  },
+  "reporting": "Never infer a security guarantee from a crawler failure. Preserve per-run evidence and versioned procedures; summarize negative results as well as successes.",
+  "performance": "Report within-environment raw repeated samples, workload sizes, medians and tails. Browser wall time is not CPU time. Treat unavailable memory and CPU readings as unavailable. Do not present network loopback timing as Internet latency."
+}

@@ -1,0 +1,48 @@
+Program forest.dll language x86:LE:64:default
+FUNCTION dispatch_score at 180001000
+
+int dispatch_score(uint *param_1)
+
+{
+  longlong lVar1;
+  uint uVar2;
+  ulonglong uVar3;
+  int iVar4;
+  uint *puVar5;
+  int iVar6;
+  
+                    /* 0x1000  1  dispatch_score */
+  iVar6 = 0;
+  iVar4 = 0;
+  puVar5 = param_1;
+  do {
+    if (1000 < *puVar5) {
+      return -1;
+    }
+    iVar4 = iVar4 + 1;
+    puVar5 = puVar5 + 1;
+  } while (iVar4 < 6);
+  puVar5 = &DAT_180003360;
+  do {
+    uVar2 = *puVar5;
+    uVar3 = (ulonglong)(int)uVar2;
+    iVar4 = *(int *)(&DAT_180002000 + uVar3 * 0x14);
+    while (-1 < iVar4) {
+      lVar1 = (longlong)(int)uVar3 * 0x14;
+      if (*(int *)(&DAT_180002004 + lVar1) < (int)param_1[*(int *)(&DAT_180002000 + lVar1)]) {
+        uVar2 = *(uint *)(&UNK_18000200c + lVar1);
+      }
+      else {
+        uVar2 = *(uint *)(&DAT_180002008 + lVar1);
+      }
+      uVar3 = (ulonglong)uVar2;
+      iVar4 = *(int *)(&DAT_180002000 + (longlong)(int)uVar2 * 0x14);
+    }
+    puVar5 = puVar5 + 1;
+    iVar6 = iVar6 + *(int *)(&DAT_180002010 + (longlong)(int)uVar2 * 0x14);
+  } while ((longlong)puVar5 < 0x180003380);
+  return (int)(iVar6 + (iVar6 >> 0x1f & 7U)) >> 3;
+}
+
+
+RODATA 180002000 5632

@@ -1,0 +1,1 @@
+{"manifest_version":3,"name":"Owned loopback content-script observer","version":"0.1.0","permissions":[],"content_scripts":[{"matches":["http://127.0.0.1/worker-test/*"],"js":["observer.js"],"run_at":"document_start"}]}

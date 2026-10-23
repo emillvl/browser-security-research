@@ -1,0 +1,74 @@
+from pathlib import Path
+import json, hashlib
+from log import ROOT, event
+
+models = {
+    'A1': 'Basic HTTP collector or downloader',
+    'A2': 'Advanced crawler, renderer or browser automation',
+    'A3': 'Ordinary authorized visitor',
+    'A4': 'Visitor with DevTools and network inspection',
+    'A5': 'Visitor controlling page JavaScript and instrumentation',
+    'A6': 'Extension or injected content-script operator',
+    'A7': 'Operator debugging or modifying extension background execution',
+    'A8': 'Browser debugging-protocol and runtime operator',
+    'A9': 'Modified or custom browser operator',
+    'A10': 'Operating-system administrator',
+    'A11': 'Permitted-traffic interception, proxy, recording and replay',
+    'A12': 'Black-box behavior reconstruction',
+    'A13': 'Combined assets, proxies, reverse engineering and learned models',
+    'A14': 'Provisioning and execution authorization attacker',
+    'A15': 'Attacker against a hardware-backed execution boundary',
+    'A16': 'Rendered pixel, visible content and interaction-trace copying',
+}
+protocol = {
+    'date': '2026-10-18',
+    'phase': 2,
+    'phase1_document_sha256': hashlib.sha256(
+        (ROOT.parent / 'Browser_and_Website_Script_Protection_Research.docx').read_bytes()
+    ).hexdigest(),
+    'objectives': [
+        'Content retention',
+        'Visual and structural replication',
+        'Program extraction',
+        'Proprietary implementation recovery',
+        'Behavior reconstruction',
+        'Unauthorized service reuse',
+        'Key and execution-boundary compromise',
+        'Combined application resistance',
+    ],
+    'models': models,
+    'model_rule': 'Capabilities are independent, not an arbitrary security hierarchy or score.',
+    'labels': ['observed', 'supported inference', 'hypothesis', 'unimplemented', 'unknown'],
+    'initial_hypotheses': [
+        {
+            'id': 'P201',
+            'claim': 'An authorized page may lack extension worker state access while a browser-protocol operator can inspect its runtime program and modify results.',
+            'prerequisites': 'A verified Chromium-family browser supporting temporary extensions and worker debugging.',
+            'positive_controls': 'Normal application result; independent page decrypt hook positive control; worker target identification; before/after program and output.',
+        },
+        {
+            'id': 'P202',
+            'claim': 'Real account identity, request binding and operation-specific challenges can stop copied or proxy-relayed requests without concealing all allowed behavior.',
+            'prerequisites': 'Owned authenticated local application with ground-truth richer workloads.',
+        },
+        {
+            'id': 'P203',
+            'claim': 'Moving execution into a privileged browser component changes page and extension access but remains removable by a browser owner.',
+            'prerequisites': 'Isolated browser distribution with a verifiable privileged execution path.',
+        },
+        {
+            'id': 'P204',
+            'claim': 'Hardware-backed provisioning requires independently verified hardware and attestation; a software model alone cannot establish that property.',
+            'prerequisites': 'Actual capability probe and explicit model/implementation distinction.',
+        },
+    ],
+    'success_rule': 'I report extracted information, held-out replication, accepted unauthorized operations and matched performance separately. A failed capture alone is not copying resistance.',
+}
+(ROOT / 'protocol.json').write_text(json.dumps(protocol, indent=2), encoding='utf-8')
+event(
+    'decision',
+    'START',
+    'I preserved Phase I and created a separate Phase II protocol. The referenced Phase II scaffold was not found; I will independently implement its described extension-worker debugging test.',
+    ['protocol.json', 'README.md'],
+    phase1_sha256=protocol['phase1_document_sha256'],
+)
