@@ -1,5 +1,6 @@
 from pathlib import Path
 import shutil, json, hashlib, sys
+from preparation import with_credential
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -11,14 +12,15 @@ if target.exists():
     raise RuntimeError(
         'Dedicated broker distribution already exists; preserve it and select another version'
     )
+source = with_credential(
+    (ROOT / 'browser/modules/Broker.sys.mjs').read_text(encoding='utf-8'),
+    (ROOT / 'protections/extension/config.js').read_text(encoding='utf-8'),
+)
 shutil.copytree(base, target)
-secret = (ROOT / 'protections/extension/config.js').read_text().split('=', 1)[1].strip().rstrip(';')
 modules = target / 'research-modules'
 shutil.copytree(ROOT / 'browser/modules', modules)
 broker = modules / 'Broker.sys.mjs'
-broker.write_text(
-    broker.read_text().replace("'__PROVISIONING_CREDENTIAL__'", secret), encoding='utf-8'
-)
+broker.write_text(source, encoding='utf-8')
 config = """// Dedicated Phase II privileged browser-component experiment.
 var {Services}=ChromeUtils.importESModule('resource://gre/modules/Services.sys.mjs');
 var dir=Services.dirsvc.get('GreD',Ci.nsIFile);dir.append('research-modules');

@@ -2,28 +2,20 @@
 
 from pathlib import Path
 import shutil, json, hashlib
+from preparation import component_v2_source, with_credential
 
 ROOT = Path(__file__).resolve().parents[1]
 target = ROOT / 'browser/waterfox-broker'
+source = with_credential(
+    component_v2_source((ROOT / 'browser/modules/Broker.sys.mjs').read_text(encoding='utf-8')),
+    (ROOT / 'protections/extension/config.js').read_text(encoding='utf-8'),
+)
 version = ROOT / 'versions/browser-component-v1'
 if not version.exists():
     version.mkdir()
     shutil.copy2(target / 'research.cfg', version / 'research.cfg')
     shutil.copytree(target / 'research-modules', version / 'research-modules')
 modules = target / 'research-modules'
-source = (
-    (ROOT / 'browser/modules/Broker.sys.mjs')
-    .read_text()
-    .replace(
-        "const {Services}=ChromeUtils.importESModule('resource://gre/modules/Services.sys.mjs');",
-        'const appInfo=Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULRuntime);',
-    )
-)
-source = source.replace('Services.appinfo.processType', 'appInfo.processType').replace(
-    'Services.appinfo.processID', 'appInfo.processID'
-)
-secret = (ROOT / 'protections/extension/config.js').read_text().split('=', 1)[1].strip().rstrip(';')
-source = source.replace("'__PROVISIONING_CREDENTIAL__'", secret)
 (modules / 'Broker.sys.mjs').write_text(source, encoding='utf-8')
 parent = (
     (ROOT / 'browser/modules/ResearchParent.sys.mjs')

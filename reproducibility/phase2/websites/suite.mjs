@@ -2,7 +2,7 @@ import http from "node:http";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import os from "node:os";
-import { readFileSync, writeFileSync, appendFileSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, appendFileSync, existsSync, mkdirSync } from "node:fs";
 import { randomBytes, scryptSync, timingSafeEqual, createPublicKey, verify } from "node:crypto";
 import { forest, catalogue, pureOperation, canonical, hash } from "./application.mjs";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."),
@@ -40,6 +40,7 @@ const environment = {
   architecture: "Authenticated single-process service; no hardware attestation",
 };
 const runName = "suite-" + Date.now();
+mkdirSync(path.join(root, "evidence"), { recursive: true });
 writeFileSync(
   path.join(root, "evidence", runName + "-environment.json"),
   JSON.stringify(environment, null, 2),

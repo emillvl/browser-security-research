@@ -1,6 +1,6 @@
 // Separate recipient-approval experiment. Administrative authority is never given to the page or extension.
 import http from "node:http";
-import { readFileSync, writeFileSync, appendFileSync } from "node:fs";
+import { readFileSync, writeFileSync, appendFileSync, mkdirSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
@@ -28,6 +28,7 @@ const b64 = (x) => Buffer.from(x).toString("base64url"),
       .update(j.x + "|" + j.y)
       .digest("hex"),
   record = path.join(root, "evidence", "provisioning-" + Date.now() + "-requests.jsonl");
+mkdirSync(path.join(root, "evidence"), { recursive: true });
 writeFileSync(
   path.join(root, "protections/extension-v2/config.js"),
   `const provisioningCredential=${JSON.stringify(credential)};\nconst issuerKey=${JSON.stringify(signer.publicKey.export({ format: "jwk" }))};\n`,

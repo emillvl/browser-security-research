@@ -47,7 +47,7 @@ Keeping a website's private calculations on an authorized server gave the strong
 
 ## Reproducibility materials
 
-The [experiment supplement](reproducibility/README.md) retains selected research source, protocols, and implementation examples. Recorded evidence, local metadata, and hardcoded experiment credentials have been excluded from this public repository. It is not a complete research archive or a portable installation; no experiments were rerun.
+The [experiment supplement](reproducibility/README.md) retains selected research source, protocols, and implementation examples. The current version excludes original run evidence, local execution metadata, and run-specific credentials. Its setup instructions explain how to create fresh local inputs and which scripts still require unavailable original inputs. This is a selected source release; the original observations cannot all be reconstructed from this package alone. No experiments were rerun for publication or cleanup.
 
 ---
 

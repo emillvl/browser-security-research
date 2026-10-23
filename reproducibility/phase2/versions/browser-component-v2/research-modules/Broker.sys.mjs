@@ -1,7 +1,7 @@
 // Program bytes and cryptographic operations live in the privileged browser parent.
 const appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULRuntime);
 Cu.importGlobalProperties(["crypto", "fetch", "TextEncoder", "TextDecoder"]);
-const credential = "d11a94cb56d0040989d3a738bddac56ba8f14fa74af1205a383454b79fb0b27b";
+const credential = "__PROVISIONING_CREDENTIAL__";
 const encoder = new TextEncoder(),
   from64 = (s) =>
     Uint8Array.from(atob(s.replace(/-/g, "+").replace(/_/g, "/")), (c) => c.charCodeAt(0));

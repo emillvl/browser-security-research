@@ -1,7 +1,7 @@
 import http from "node:http";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { readFileSync, writeFileSync, appendFileSync } from "node:fs";
+import { readFileSync, writeFileSync, appendFileSync, mkdirSync } from "node:fs";
 import {
   randomBytes,
   createECDH,
@@ -20,6 +20,7 @@ const b64 = (x) => Buffer.from(x).toString("base64url"),
     createHash("sha256")
       .update(j.x + "|" + j.y)
       .digest("hex");
+mkdirSync(path.join(root, "evidence"), { recursive: true });
 writeFileSync(
   path.join(root, "protections/extension/config.js"),
   `const provisioningCredential=${JSON.stringify(credential)};\n`,

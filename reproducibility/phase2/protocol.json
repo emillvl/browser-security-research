@@ -1,7 +1,6 @@
 {
   "date": "2026-10-18",
   "phase": 2,
-  "phase1_document_sha256": "2c656775d5ef8b701a46b56deebb6a7f72945f86389ae9a2372143b97d30578a",
   "objectives": [
     "Content retention",
     "Visual and structural replication",
